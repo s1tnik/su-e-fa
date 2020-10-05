@@ -1,0 +1,90 @@
+<meta charset="UTF-8">
+
+<script>
+
+    function computerPlay() {
+
+        let number = Math.floor(1 + Math.random()*3);
+        let turn;
+
+        switch (number) {
+            case 1:
+                turn = "колодец";
+                break;
+            case 2:
+                turn = "ножницы";
+                break;
+            case 3:
+                turn = "бумага";
+                break;
+            default:
+                console.log(number);
+        }
+
+        return turn;
+    }
+
+    function playSingleRound(playerSelection, computerSelection) {
+
+        playerSelection = playerSelection.toLowerCase();
+
+        if (playerSelection === "бумага" && computerSelection === "колодец") {
+            return "Ты выиграл, бумага бьет колодец!";
+        } else if (playerSelection === "колодец" && computerSelection === "ножницы") {
+            return "Ты выиграл, колодец бьет ножницы!";
+        } else if (playerSelection === "ножницы" && computerSelection === "бумага") {
+            return "Ты выиграл, ножницы бьют бумагу!";
+        } else if (computerSelection === "бумага" && playerSelection === "колодец") {
+            return "Ты проиграл, бумага бьет колодец!";
+        } else if (computerSelection === "колодец" && computerSelection === "ножницы") {
+            return "Ты проиграл, колодец бьет ножницы!";
+        } else if (computerSelection === "ножницы" && playerSelection === "бумага") {
+            return "Ты проиграл, ножницы бьют бумагу!";
+        } else if (computerSelection === playerSelection) {
+            return "Ничья!";
+        }
+    }
+
+    function game() {
+
+        let computerScore = 0;
+        let playerScore = 0;
+        let draw = 0;
+
+        for (let i = 0; i < 5; i++) {
+
+            const playerSelection = prompt("Ваш выбор : ");
+            const computerSelection = computerPlay();
+
+            let result = playSingleRound(playerSelection, computerSelection);
+
+            if (result.search("выиграл") === -1 && result.search("проиграл") === -1) {
+                draw++;
+            } else if (result.search("выиграл") === -1 ) {
+                computerScore++;
+            } else if (result.search("проиграл") === -1 ) {
+                playerScore++;
+            }
+
+            console.log(result);
+        }
+
+        console.log("------------------------------");
+        console.log(draw);
+        console.log(playerScore);
+        console.log(computerScore);
+
+        console.log("------------------------------");
+
+        if (playerScore > computerScore) {
+            console.log("ТЫ ВЫИГРАЛ!");
+        } else if (playerScore < computerScore) {
+            console.log("ТЫ ПРОИГРАЛ!");
+        } else {
+            console.log("НИЧЬЯ!");
+        }
+    }
+
+    game();
+
+</script>
